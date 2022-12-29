@@ -1,0 +1,81 @@
+%{
+#include<stdio.h>
+#include<string.h>
+int n=0;
+struct intermcode
+{
+char op1;
+char op2;
+char op;
+};
+%}
+%union
+{
+char sym;
+}
+%token <sym> letter,number
+%type<sym> expr
+%left '-''+'
+% right '*''/'
+%%
+
+statement: letter '='expr ';' {addtotable((char)$1,(char)$3,'=');}
+| expr;
+expr: expr '+' expr {$$=addtotable((char)$1,(char)$3,'+');}
+|expr '-' expr {$$=addtotable((char)$1,(char)$3,'-');}
+|expr '*' expr {$$=addtotable((char)$1,(char)$3,'*');}
+|expr '/' expr {$$=addtotable((char)$1,(char)$3,'/');}
+| '('expr')' {$$=(char)$2;}
+|letter {$$ = (char)$1;}
+|number {$$ = (char)$1;}
+%%
+
+yyerror(char *s)
+{
+printf("%s",s);
+}
+struct intercode code[20];
+char temp ='A';
+int f=0;
+char addtotable(char op1,op2,op)
+{
+if(f!=0)
+	temp++;
+code[n].op1=op1;
+code[n].op2=op2;
+code[n].op=op;
+n++;
+f++;
+return temp;
+}
+threeaddresscode()
+{
+int i=0;
+char temp='A';
+printf("\n\n\t three address code\n\n");
+while(i<n)
+{
+printf("%c:=\t",temp);
+if (isalpha(code[nCnt].operand1))
+printf("%c\t", code[nCnt].operand1);
+else
+printf("%c\t",temp);
+printf("%c\t", code[nCnt].opera);
+if (isalpha(code[nCnt].operand2))
+printf("%c\t", code[nCnt].operand2);
+else
+printf("%c\t",temp);
+printf("\n");
+nCnt++;
+temp++;
+}}
+main()
+{
+printf("enter expression");
+yyparse();
+threeaddresscode();
+}
+yywrap()
+{
+return 1;
+}

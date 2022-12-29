@@ -1,0 +1,11 @@
+%%
+[0-9]*1[0-9]{4} {printf("Found");}
+%%
+main()
+{
+yylex();
+}
+int yywrap()
+{
+return 1;
+}

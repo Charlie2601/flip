@@ -1,0 +1,12 @@
+%{
+#include "y.tab.h"
+extern char yyval;
+%}
+number [o-9]+
+letter [a-zA-Z]+
+%%
+{number} {yyval.sym=(char)yytext[0]; return number;}
+{letter} {yyval.sym=(char)yyext[0]; return letter;}
+\n {return 0}
+. {return yytext[0];}
+%%

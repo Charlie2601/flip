@@ -1,0 +1,17 @@
+%{
+#include<stdio.h>
+%}
+startingk k.*
+endingk .*k
+%%
+{srartingk} {printf("starting with k %s",yytext);
+{endingk} {printf("ending with k %s",yytext);
+%%
+main()
+{
+yylex();
+}
+int yywrap()
+{
+return 1;
+}
